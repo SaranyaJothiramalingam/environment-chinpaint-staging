@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label "jenkins-maven"
+    label "jenkins-gradle"
   }
   environment {
     DEPLOY_NAMESPACE = "change-meee"
@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Validate Environment') {
       steps {
-        container('maven') {
+        container('gradle') {
           dir('env') {
             sh 'jx step helm build'
           }
@@ -20,7 +20,7 @@ pipeline {
         branch 'master'
       }
       steps {
-        container('maven') {
+        container('gradle') {
           dir('env') {
             sh 'jx step helm apply'
           }
